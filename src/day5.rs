@@ -2,7 +2,6 @@ use std::{
     collections::HashMap,
     fs::File,
     io::{BufRead, BufReader},
-    iter::repeat,
 };
 
 #[derive(PartialEq, Debug)]
