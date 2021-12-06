@@ -9,15 +9,10 @@ fn tick_fish(state: &mut [usize; 9]) {
 }
 
 fn parse_input(s: &str) -> [usize; 9] {
-    let initial_state = s
-        .split(",")
-        .map(|s| s.parse::<u8>().expect("Not a number"))
-        .collect::<Vec<u8>>();
-
     let mut fish_counts = [0; 9];
-    for i in 0..=8 {
-        fish_counts[i] = initial_state.iter().filter(|&&x| x == (i as u8)).count();
-    }
+    s.split(",")
+        .map(|s| s.parse::<u8>().expect("Not a number"))
+        .for_each(|x| fish_counts[x as usize] += 1);
 
     fish_counts
 }
