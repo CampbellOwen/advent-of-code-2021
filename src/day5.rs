@@ -12,23 +12,21 @@ struct Line {
 
 impl From<&str> for Line {
     fn from(s: &str) -> Self {
-        let coords = s.split("->").map(|s| s.trim()).collect::<Vec<&str>>();
-        assert_eq!(coords.len(), 2);
+        let mut coords = [(0, 0); 2];
+        s.split("->")
+            .map(|s| s.trim())
+            .map(|s| s.split(','))
+            .map(|mut nums| {
+                (
+                    nums.next().unwrap().parse::<i32>().unwrap(),
+                    nums.next().unwrap().parse::<i32>().unwrap(),
+                )
+            })
+            .enumerate()
+            .for_each(|(i, coord)| coords[i] = coord);
 
-        if let [left, right] = coords.as_slice() {
-            let start: Vec<i32> = left.split(",").map(|x| x.parse().unwrap()).collect();
-            let end: Vec<i32> = right.split(",").map(|x| x.parse().unwrap()).collect();
-
-            Self {
-                start: (start[0], start[1]),
-                end: (end[0], end[1]),
-            }
-        } else {
-            Self {
-                start: (0, 0),
-                end: (0, 0),
-            }
-        }
+        let [start, end] = coords;
+        Self { start, end }
     }
 }
 
