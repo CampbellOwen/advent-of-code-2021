@@ -1,3 +1,4 @@
+use core::num;
 use std::{
     fs::File,
     io::{BufReader, Read},
@@ -17,6 +18,12 @@ fn parse_input(s: &str) -> [usize; 9] {
     fish_counts
 }
 
+fn simulate_days(initial_state: &mut [usize; 9], num_days: usize) {
+    for _ in 0..num_days {
+        tick_fish(initial_state);
+    }
+}
+
 pub fn part1() {
     let mut input = BufReader::new(File::open("input/day6.txt").unwrap());
 
@@ -27,9 +34,7 @@ pub fn part1() {
 
     let mut fish_counts = parse_input(&input_string);
 
-    for _ in 0..80 {
-        tick_fish(&mut fish_counts);
-    }
+    simulate_days(&mut fish_counts, 80);
 
     println!(
         "Number of fish after 80 days: {}",
@@ -47,9 +52,7 @@ pub fn part2() {
 
     let mut fish_counts = parse_input(&input_string);
 
-    for _ in 0..256 {
-        tick_fish(&mut fish_counts);
-    }
+    simulate_days(&mut fish_counts, 256);
 
     println!(
         "Number of fish after 256 days: {}",
