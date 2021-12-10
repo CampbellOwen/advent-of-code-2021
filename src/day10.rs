@@ -71,6 +71,8 @@ fn parse_line(line: &str) -> Result<(), ParseError> {
                     return Err(ParseError::Corrupt(ending));
                 }
             }
+        } else {
+            unreachable!()
         }
     }
 
