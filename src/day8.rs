@@ -1,7 +1,5 @@
 use std::{
-    collections::HashMap,
     convert::{TryFrom, TryInto},
-    fmt::Error,
     fs::File,
     io::BufRead,
     io::BufReader,

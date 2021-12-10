@@ -27,7 +27,7 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let mut input = BufReader::new(File::open("input/day1.txt").expect("day 1 input missing"));
+    let input = BufReader::new(File::open("input/day1.txt").expect("day 1 input missing"));
 
     let lines: Vec<i32> = input
         .lines()

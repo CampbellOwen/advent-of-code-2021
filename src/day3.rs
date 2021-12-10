@@ -27,7 +27,7 @@ fn count_bits(mut numbers: Vec<&str>) -> Vec<u32> {
 }
 
 pub fn part1() {
-    let mut input = BufReader::new(File::open("input/day3.txt").unwrap());
+    let input = BufReader::new(File::open("input/day3.txt").unwrap());
 
     let strings = input.lines().map(|s| s.unwrap()).collect::<Vec<String>>();
     let borrowed = strings.iter().map(|s| s as &str).collect();
