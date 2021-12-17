@@ -138,9 +138,10 @@ pub fn part2() {
 
     let (dots, instructions) = parse_input(&input_string);
 
-    let final_board = instructions
-        .iter()
-        .fold(dots, |dots, &inst| fold_set(&dots, inst));
+    let final_board = instructions.iter().fold(dots, |dots, &inst| {
+        print_board(&dots);
+        fold_set(&dots, inst)
+    });
 
     println!("Final board: ");
     print_board(&final_board);

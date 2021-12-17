@@ -153,12 +153,12 @@ pub fn part2() {
         .iter()
         .map(|&coord| board.find_basin(coord).len())
         .collect::<Vec<usize>>();
-    basin_sizes.sort();
+    basin_sizes.sort_unstable();
     let product = basin_sizes
         .iter()
         .rev()
         .take(3)
-        .map(|&x| x)
+        .copied()
         .reduce(|product, num| product * num)
         .expect("product failed");
 

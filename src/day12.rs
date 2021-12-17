@@ -19,15 +19,15 @@ impl From<&str> for CaveSystem {
                 let start = start.to_string();
                 let end = end.to_string();
 
-                let entry = state.entry(start.clone()).or_insert(Vec::new());
+                let entry = state.entry(start.clone()).or_insert_with(Vec::new);
 
                 if !entry.contains(&end) && end != "start" && start != "end" {
                     entry.push(end.clone());
                 }
 
-                let entry = state.entry(end.clone()).or_insert(Vec::new());
+                let entry = state.entry(end.clone()).or_insert_with(Vec::new);
                 if !entry.contains(&start) && start != "start" && end != "end" {
-                    entry.push(start.clone());
+                    entry.push(start);
                 }
             });
 

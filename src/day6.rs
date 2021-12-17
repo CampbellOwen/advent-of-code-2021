@@ -10,7 +10,7 @@ fn tick_fish(state: &mut [usize; 9]) {
 
 fn parse_input(s: &str) -> [usize; 9] {
     let mut fish_counts = [0; 9];
-    s.split(",")
+    s.split(',')
         .map(|s| s.parse::<u8>().expect("Not a number"))
         .for_each(|x| fish_counts[x as usize] += 1);
 

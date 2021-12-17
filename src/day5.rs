@@ -31,12 +31,10 @@ impl From<&str> for Line {
 }
 
 fn step(a: i32, b: i32) -> i32 {
-    if a == b {
-        0
-    } else if a < b {
-        1
-    } else {
-        -1
+    match a.cmp(&b) {
+        std::cmp::Ordering::Less => 1,
+        std::cmp::Ordering::Equal => 0,
+        std::cmp::Ordering::Greater => -1,
     }
 }
 
@@ -46,7 +44,7 @@ struct Board {
 
 impl Board {
     fn draw_line(&mut self, line: &Line, diagonal: bool) {
-        if !diagonal && !(line.start.0 == line.end.0 || line.start.1 == line.end.1) {
+        if !(diagonal || line.start.0 == line.end.0 || line.start.1 == line.end.1) {
             return;
         }
 
@@ -64,7 +62,7 @@ impl Board {
                 .entry((line.start.0 + (i * x_step), line.start.1 + (i * y_step)))
                 .or_insert(0);
 
-            *val = *val + 1;
+            *val += 1;
         }
     }
 

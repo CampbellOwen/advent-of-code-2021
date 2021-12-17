@@ -4,7 +4,7 @@ use std::{
 };
 
 fn parse_input(s: &str) -> Vec<i32> {
-    s.split(",").map(|s| s.parse().unwrap()).collect()
+    s.split(',').map(|s| s.parse().unwrap()).collect()
 }
 
 fn calculate_cost(x: i32, y: i32, part_1: bool) -> i32 {
@@ -19,11 +19,11 @@ fn calculate_cost(x: i32, y: i32, part_1: bool) -> i32 {
     }
 }
 
-fn optimal_position(positions: &Vec<i32>, part_1: bool) -> (i32, i32) {
+fn optimal_position(positions: &[i32], part_1: bool) -> (i32, i32) {
     let &min = positions.iter().min().unwrap();
     let &max = positions.iter().max().unwrap();
 
-    let optimal = (min..=max)
+    (min..=max)
         .map(|pos| {
             (
                 pos,
@@ -34,9 +34,7 @@ fn optimal_position(positions: &Vec<i32>, part_1: bool) -> (i32, i32) {
             )
         })
         .min_by(|(_, cost1), (_, cost2)| cost1.cmp(cost2))
-        .unwrap();
-
-    optimal
+        .unwrap()
 }
 
 pub fn part1() {

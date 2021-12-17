@@ -125,7 +125,7 @@ pub fn part2() {
         })
         .collect();
 
-    error_scores.sort();
+    error_scores.sort_unstable();
     let mid = error_scores[error_scores.len() / 2];
 
     println!("Middle error score: {}", mid);

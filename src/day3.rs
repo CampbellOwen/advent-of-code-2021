@@ -10,7 +10,7 @@ fn string_to_bits(s: &str) -> Vec<u32> {
         .collect()
 }
 
-fn vec_to_num(digits: &Vec<u32>) -> u32 {
+fn vec_to_num(digits: &[u32]) -> u32 {
     digits.iter().fold(0, |num, digit| (num << 1) | (digit & 1))
 }
 
@@ -19,7 +19,7 @@ fn count_bits(mut numbers: Vec<&str>) -> Vec<u32> {
     numbers.into_iter().for_each(|s| {
         let new_bits = string_to_bits(s);
         new_bits.iter().enumerate().for_each(|(i, bit)| {
-            counts[i] = counts[i] + bit;
+            counts[i] += bit;
         });
     });
 
@@ -35,7 +35,7 @@ pub fn part1() {
     let counts = count_bits(borrowed);
 
     let final_num = vec_to_num(
-        &(counts
+        counts
             .iter()
             .map(|total| {
                 if *total > (strings.len() as u32 / 2) {
@@ -44,12 +44,13 @@ pub fn part1() {
                     0
                 }
             })
-            .collect()),
+            .collect::<Vec<u32>>()
+            .as_slice(),
     );
 
     let gamma = final_num;
     let epsilon = !gamma;
-    let epsilon = epsilon & ((2 as u32).pow(12) - 1);
+    let epsilon = epsilon & ((2_u32).pow(12) - 1);
 
     println!("Power consumption is {}", gamma * epsilon);
 }

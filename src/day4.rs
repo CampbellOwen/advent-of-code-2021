@@ -127,7 +127,7 @@ pub fn part2() {
                 board.mark_num(draw);
 
                 if board.is_won() {
-                    num_winners = num_winners + 1;
+                    num_winners += 1;
 
                     if num_winners == num_boards {
                         println!("Winning score: {}", board.value() * draw);

@@ -20,7 +20,7 @@ pub fn part1() {
 
         let number: i32 = line.trim().parse().expect("Line not a number :(");
 
-        return (if number > prev_num { total + 1 } else { total }, number);
+        (if number > prev_num { total + 1 } else { total }, number)
     });
 
     println!("Total increasing numbers: {}", total);
@@ -42,7 +42,7 @@ pub fn part2() {
         let sum: i32 = offsets.iter().map(|offset| lines[i + offset]).sum();
 
         if sum > prev_sum {
-            total = total + 1;
+            total += 1;
         }
         prev_sum = sum;
     }

@@ -1,7 +1,9 @@
-use std::{io::{BufReader, BufRead}, fs::File};
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+};
 
-
-enum Instruction{
+enum Instruction {
     Forward(i32),
     Down(i32),
     Up(i32),
@@ -17,7 +19,7 @@ impl Instruction {
             "forward" => Some(Instruction::Forward(magnitude)),
             "down" => Some(Instruction::Down(magnitude)),
             "up" => Some(Instruction::Up(magnitude)),
-            _ => None
+            _ => None,
         }
     }
 }
@@ -27,34 +29,30 @@ type State1 = (i32, i32);
 fn execute_1(state: State1, inst: Instruction) -> State1 {
     let (horiz, vert) = state;
     match inst {
-        Instruction::Up(n) => (horiz, vert-n),
-        Instruction::Down(n) => (horiz, vert+n),
-        Instruction::Forward(n) => (horiz+n, vert),
+        Instruction::Up(n) => (horiz, vert - n),
+        Instruction::Down(n) => (horiz, vert + n),
+        Instruction::Forward(n) => (horiz + n, vert),
     }
 }
 
-fn execute_series<'a, I>(instructions: I) -> State1
-    where I : IntoIterator<Item = String>
+fn execute_series<I>(instructions: I) -> State1
+where
+    I: IntoIterator<Item = String>,
 {
     let initial_state = (0, 0);
     instructions
         .into_iter()
         .map(|line| Instruction::parse(line.trim()))
-        .filter_map(|s| s)
+        .flatten()
         .fold(initial_state, execute_1)
-    
 }
-
 
 pub fn part1() {
     let input = BufReader::new(File::open("input/day2.txt").unwrap());
 
-    let (h, v) = execute_series(input
-        .lines()
-        .filter_map(|line| line.ok())
-    );
+    let (h, v) = execute_series(input.lines().filter_map(|line| line.ok()));
 
-    let answer = h*v;
+    let answer = h * v;
 
     println!("Day2 part 1 answer is {:?}", answer);
 }
@@ -66,35 +64,31 @@ fn execute_2(state: State2, inst: Instruction) -> State2 {
     match inst {
         Instruction::Up(n) => (h, v, aim - n),
         Instruction::Down(n) => (h, v, aim + n),
-        Instruction::Forward(n) => (h + n, v + (n*aim), aim),
+        Instruction::Forward(n) => (h + n, v + (n * aim), aim),
     }
 }
 
-fn execute_series_2<'a, I>(instructions: I) -> State2
-    where I : IntoIterator<Item = String>
+fn execute_series_2<I>(instructions: I) -> State2
+where
+    I: IntoIterator<Item = String>,
 {
-    let initial_state = (0, 0,  0);
+    let initial_state = (0, 0, 0);
     instructions
         .into_iter()
         .map(|line| Instruction::parse(line.trim()))
-        .filter_map(|s| s)
+        .flatten()
         .fold(initial_state, execute_2)
-    
 }
 
 pub fn part2() {
     let input = BufReader::new(File::open("input/day2.txt").unwrap());
 
-    let (h, v, _) = execute_series_2(input
-        .lines()
-        .filter_map(|line| line.ok())
-    );
+    let (h, v, _) = execute_series_2(input.lines().filter_map(|line| line.ok()));
 
-    let answer = h*v;
+    let answer = h * v;
 
     println!("Day2 part 2 answer is {:?}", answer);
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -102,7 +96,7 @@ mod tests {
 
     #[test]
     fn foward() {
-        let state = (0,0);
+        let state = (0, 0);
         let inst = Instruction::Forward(12);
 
         assert_eq!(execute_1(state, inst), (12, 0));
@@ -110,14 +104,14 @@ mod tests {
 
     #[test]
     fn up() {
-        let state = (0,0);
+        let state = (0, 0);
         let inst = Instruction::Up(12);
 
         assert_eq!(execute_1(state, inst), (0, -12));
     }
     #[test]
     fn down() {
-        let state = (0,0);
+        let state = (0, 0);
         let inst = Instruction::Down(12);
 
         assert_eq!(execute_1(state, inst), (0, 12));
@@ -125,13 +119,13 @@ mod tests {
 
     #[test]
     fn part1() {
-        let input= vec![
-"forward 5",
-"down 5   ",
-"forward 8",
-"up 3",
-"down 8   ",
-"forward 2",
+        let input = vec![
+            "forward 5",
+            "down 5   ",
+            "forward 8",
+            "up 3",
+            "down 8   ",
+            "forward 2",
         ];
 
         let (h, v) = execute_series(input.into_iter().map(|s| String::from(s)));
@@ -141,13 +135,13 @@ mod tests {
 
     #[test]
     fn part2() {
-        let input= vec![
-"forward 5",
-"down 5   ",
-"forward 8",
-"up 3",
-"down 8   ",
-"forward 2",
+        let input = vec![
+            "forward 5",
+            "down 5   ",
+            "forward 8",
+            "up 3",
+            "down 8   ",
+            "forward 2",
         ];
 
         let (h, v, _) = execute_series_2(input.into_iter().map(|s| String::from(s)));

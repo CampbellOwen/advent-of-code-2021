@@ -164,7 +164,7 @@ fn decode_entry(entry: &(&str, &str)) -> u32 {
         .unwrap() as u32
 }
 
-fn count_unique_numbers(lines: &Vec<String>) -> usize {
+fn count_unique_numbers(lines: &[String]) -> usize {
     let unique_number_signals: [u32; 4] = [2, 3, 4, 7];
     lines
         .iter()
@@ -243,7 +243,7 @@ mod tests {
 ]
         .iter()
         .map(|s| s.to_string())
-        .collect();
+        .collect::<Vec<String>>();
 
         let c = count_unique_numbers(&test_data_part1);
         assert_eq!(c, 26);
