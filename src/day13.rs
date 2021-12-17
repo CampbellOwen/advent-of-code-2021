@@ -1,7 +1,6 @@
 use std::{
     collections::HashSet,
     fs::File,
-    hash::Hash,
     io::{BufReader, Read},
 };
 
@@ -110,9 +109,9 @@ fn print_board(dots: &HashSet<(u32, u32)>) {
                 print!(".");
             }
         }
-        println!("");
+        println!();
     }
-    println!("");
+    println!();
 }
 
 pub fn part1() {
@@ -138,10 +137,9 @@ pub fn part2() {
 
     let (dots, instructions) = parse_input(&input_string);
 
-    let final_board = instructions.iter().fold(dots, |dots, &inst| {
-        print_board(&dots);
-        fold_set(&dots, inst)
-    });
+    let final_board = instructions
+        .iter()
+        .fold(dots, |dots, &inst| fold_set(&dots, inst));
 
     println!("Final board: ");
     print_board(&final_board);

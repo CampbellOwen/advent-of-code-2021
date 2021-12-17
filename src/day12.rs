@@ -1,10 +1,4 @@
-use core::num;
-use std::{
-    collections::HashMap,
-    fs::File,
-    io::BufReader,
-    io::{BufRead, Read},
-};
+use std::{collections::HashMap, fs::File, io::BufReader, io::Read};
 
 struct CaveSystem {
     paths: HashMap<String, Vec<String>>,
