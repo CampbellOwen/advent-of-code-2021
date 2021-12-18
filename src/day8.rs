@@ -202,7 +202,7 @@ pub fn part2() {
 
     let sum = lines
         .iter()
-        .map(|line| split_input(&line))
+        .map(|line| split_input(line))
         .map(|entry| decode_entry(&entry))
         .sum::<u32>();
 

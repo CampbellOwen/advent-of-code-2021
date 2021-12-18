@@ -16,7 +16,7 @@ fn criterion_benchmark(c: &mut Criterion) {
         b.iter(|| {
             let mut initial_state = [0, 84, 59, 54, 48, 55, 0, 0, 0];
             simulate_days(&mut initial_state, 256);
-            let sum = initial_state.iter().sum();
+            let _ = initial_state.iter().sum::<usize>();
         })
     });
 }
