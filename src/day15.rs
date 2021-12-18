@@ -125,7 +125,7 @@ impl Cave {
 
                     PathEntry {
                         pos: coord,
-                        cost: cost,
+                        cost,
                         prev: Some(pos.pos),
                     }
                 })
@@ -154,7 +154,7 @@ impl Cave {
             let cost = self.risk(entry.pos, tiled);
             linear_path.push(PathEntry {
                 pos: entry.pos,
-                cost: cost,
+                cost,
                 prev: entry.prev,
             });
         }

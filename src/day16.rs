@@ -1,4 +1,4 @@
-use std::{fs::read_to_string, io::BufRead};
+use std::fs::read_to_string;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
 struct Header {
@@ -50,11 +50,7 @@ where
 
     let mut keep_parsing = true;
     while keep_parsing {
-        keep_parsing = if stream.next().expect("We should keep parsing????") == '1' {
-            true
-        } else {
-            false
-        };
+        keep_parsing = stream.next().expect("We should keep parsing????") == '1';
         num_bits += 1;
 
         // Parse group ( 4 bits )
